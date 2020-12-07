@@ -1,0 +1,831 @@
+/*
+
+Hide and Sneak
+
+Created: 11-27-20
+Finished: 11-29-20
+
+*Want to be notified for more good games? Great! Subscribe here: https://www.khanacademy.org/computer-programming/gavinkims-sub-page/6433084846456832*
+
+*My featured game: Nitro Math, the best math game around! https://www.khanacademy.org/computer-programming/nitro-math/6210549335932928*
+
+// {
+
+17 votes - 11-30 @ 7:00 AM - "WOW! I woke up and... 17 votes + first page! Now I have a billion notifs, but that's fine :D"
+26 votes - 11-30 @ 10:00 AM - "Climbing the hotlist! Still a huge backlog that needs clearing, so bear with me!"
+31 votes - 11-30 @ 2:00 PM - "Oh noes! Dropping off the hotlist! Clearing the backlog... almost done! As a reminder; please DO NOT submit scores **6001 OR LESS**. This helps me a lot."
+44 votes - 12-1 @ 8:00 AM - "Off the first page, backlog getting bigger. I will do a mass cleaning up soon."
+49 votes - 12-1 @ 5:00 PM - "Yea, this program doesn't have a chance at the Hot List anymore. Thanks for the good time tho! Backlog cleared."
+
+// }
+// Vote Log!
+
+// {
+
+ATTENTION! LEADERBOARD INFO!
+
+*UPDATE 11-30 @ 2 PM: Please read EVERYTHING below before submitting a score. Thanks.*
+
+*UPDATE 11-30 @ 11 AM: The backlog now consists of only a few people left! Yessss... But one more important note: I will NOT be allowing scores that are 6001 or lower. If you submit one of those scores, I will deny your score (not that it would make the leaderboard anyway). Want more than 6001 points? TAUNT! I appreciate your cooperation!*
+
+-As of 11-30, I now have a large backlog of people to add. So please, follow these instructions if you haven't been added, but you have posted your score:
+
+* Try editing the post to include the link to your profile.
+* Be patient! I have school in the way, so I cannot clear this backlog as fast as you may can. Thanks!
+
+-Please follow these instructions if you haven't posted your score yet, but you are about to:
+
+* Try to avoid scores of 6001 or lower. If you finish a game without being caught without taunting, you get a score of 6001. I have been received a LOT of these reports, and the leaderboard is sorted by most recent the case of a tie. Go taunt!
+* Again, be patient! Everyone who has a valid score will eventually be added.
+
+(SECRET: Thanks for reading this to the very end :D As a reward, you get a leaderboard tip! If you are going for a good leaderboard position, always choose EASY. You don't get a point bonus by choosing HARD, and HARD will just make it harder to get a good score. If you aren't looking for a leaderboard score, you can try HARD as a challenge! Thanks for reading :p)
+
+// }
+// IMPORTANT: LEADERBOARD INFO (Updated as of 10-30)
+
+// {
+
+***
+
+TIMELINE:
+
+60 seconds - Hiders launch
+50 seconds - Seekers launch
+0 seconds - Round ends
+
+***
+
+// }
+// The game timeline
+
+// {
+
+INSTRUCTIONS:
+
+*UPDATE: I updated the instructions to be much more readable.*
+
+ARROW KEYS to move.
+
+SHIFT to taunt. You can only taunt when hidden, and you can taunt once every 1.3ish seconds. You get 500 bonus points but the CPU gets smarter for the remainder of the game.
+
+Stay still for 1 SECOND (60 'ticks') to be hidden. Move again to be visible.
+
+Being visible will make the bot smarter and faster.
+
+If the seeker ends up on the same square as you, you lose! If you survive for one minute, you win!
+
+Good Luck! :D
+
+NOTE: The difference between easy and hard is that in hard mode, the CPU is smarter by default. 
+
+// }
+// Instructions
+
+// {
+
+Techy stuff for coders:
+
+* The CPU was very interesting and fun to code. It consisted of 'smart' and 'dumb' moves. Once per second, the computer will make a random number from 1 to 100. If that number lands in the range of the CPU's smarts, it would make a smart move (decided based on your location). If it didn't fall in that range, it would make a dumb move (a random move). 
+
+* One of the biggest challenges I faced was making the CPU just like a human player. If a human player can't see a person during a game of Hide and Seek, they would probably patrol randomly (the equivalent of dumb moves), and if they see a hider, they would obviousely move towards the person (the equivalent of smart moves). I also thought the CPU was too 'robotic' so I speeded up the number of moves the CPU makes per second when you are exposed.
+
+// }
+// Techy notes 
+
+*/
+
+// Let it code! Let it code!
+
+// {
+
+var leaders = ["SaiPranavC", "coolkid567 cool", "The No-Sock Guy", "SRReinke", "The Pirate21"];
+var pointCount = [34501, 19501, 15501, 15001, 12244];
+
+// }
+// Leaderboard control
+
+// {
+
+textFont(createFont("Times new roman"));
+
+// }
+// Text font
+
+// {
+
+var page = "home";
+var backgroundClr = 1;
+var backgroundTimer = 0;
+var buttonSize = [100, 100, 100, 100];
+var delayTimer = 0;
+var maximum = max;
+var scores = [0];
+var scoresNum = 0;
+
+var yourLocation = 1;
+var botLocation = 1;
+var botSmart = 10;
+var botAction;
+var botMove = 0;
+var otherMove;
+var hidden = false;
+var hideTimer = 60;
+var required = 60;
+var taunts = 0;
+var points = 0;
+var timeRemaining = 60;
+var timeChange = 0;
+var scaleSize;
+
+// }
+// Variables
+
+draw= function() {
+    
+    // {
+    
+    backgroundTimer ++;
+    
+    if (backgroundTimer > 19) {
+        
+    if (backgroundClr === 6) {
+    
+    backgroundClr = 1;   
+        
+    }
+    
+    else{
+        
+    backgroundClr ++;   
+        
+    }
+    
+    backgroundTimer = 0;
+        
+    }
+    
+    var changeClr = function(num, clr1, clr2, clr3) {
+        
+    if (backgroundClr === num) {
+        
+    background(clr1, clr2, clr3);
+        
+    }
+        
+    };
+    
+    changeClr(1, 100, 350, 350);
+    
+    changeClr(2, 200, 50, 350);
+    
+    changeClr(3, 100, 10, 350);
+    
+    changeClr(4, 100, 20, 350);
+    
+    changeClr(5, 0, 50, 350);
+    
+    changeClr(6, 0, 450, 350);
+    
+    fill(221, 0, 255);
+    
+    // }
+    // Background
+    
+    // {
+    
+    cursor(ARROW);
+    
+    // }
+    // Default cursor
+    
+    // {
+    
+    delayTimer ++;
+    
+    // }
+    // Delay timer
+    
+    // {
+    
+    if (page === "home") {
+    
+    scaleSize = 360 / timeRemaining;
+    
+    fill(0, 0, 0);
+    textSize(40);
+    
+    text("Hide and Sneak", 55, 75);
+    
+    var a = maximum(scores); 
+    
+    fill(0, 0, 0);
+    textSize(30);
+    
+    text("Highscore: " + a, 25, 380);
+        
+    fill(0, 0, 0);
+    
+    ellipse(200, 175, buttonSize[0], buttonSize[0]);
+        
+    if (mouseX > 150 && mouseX < 250 && mouseY > 125 && mouseY < 225) {
+        
+    cursor(HAND);
+    
+    buttonSize[0] = 110;
+    
+    if (mouseIsPressed) {
+        
+    page = "leaderboard";   
+        
+    }
+        
+    }
+    
+    else{
+        
+    buttonSize[0] = 100;   
+        
+    }
+        
+    ellipse(100, 300, buttonSize[1], buttonSize[1]);
+        
+    if (mouseX > 50 && mouseX < 150 && mouseY > 250 && mouseY < 350) {
+        
+    cursor(HAND);
+    
+    buttonSize[1] = 110;
+    
+    if (mouseIsPressed) {
+        
+    page = "easy";  
+    
+    botSmart = 10;
+        
+    }
+        
+    }
+    
+    else{
+        
+    buttonSize[1] = 100;   
+        
+    }
+        
+    ellipse(300, 300, buttonSize[2], buttonSize[2]);
+       
+    if (mouseX > 250 && mouseX < 350 && mouseY > 250 && mouseY < 350) {
+        
+    cursor(HAND);
+    
+    buttonSize[2] = 110;
+    
+    if (mouseIsPressed) {
+        
+    page = "hard";  
+    
+    botSmart = 30;
+        
+    }
+        
+    }
+    
+    else{
+        
+    buttonSize[2] = 100;   
+        
+    }
+    
+    fill(255, 255, 255);
+    textSize(20);
+    
+    text("Leaders", 162.5, 182.5);
+        
+    text("Easy", 76.5, 307.5);
+        
+    text("Hard", 277.5, 307.5);
+        
+    }
+    
+    // }
+    // Home Page
+      
+    // {
+    
+    if (page === "leaderboard") {
+        
+    fill(0, 0, 0);
+    
+    ellipse(75, 75, buttonSize[3], buttonSize[3]);
+        
+    if (mouseX > 25 && mouseX < 125 && mouseY > 25 && mouseY < 125) {
+        
+    cursor(HAND);
+    
+    buttonSize[3] = 110;
+    
+    if (mouseIsPressed) {
+        
+    page = "home";   
+        
+    }
+        
+    }
+    
+    else{
+        
+    buttonSize[3] = 100;   
+        
+    }
+    
+    fill(255, 255, 255);
+    textSize(20);
+    
+    text("Back", 51.5, 82.5);
+    
+    fill(0, 0, 0);
+    textSize(30);
+    
+    text("Spin-off proof \n  REQUIRED!", 160, 65);
+    
+    fill(0, 0, 0);
+    textSize(20);
+    
+    text("(1) " + leaders[0] + " -\n" + pointCount[0] + " points \n" + "(2) " + leaders[1] + " -\n" + pointCount[1] + " points \n" + "(3) " + leaders[2] + " -\n" + pointCount[2] + " points \n" + "(4) " + leaders[3] + " -\n" + pointCount[3] + " points \n" + "(5) " + leaders[4] + " -\n" + pointCount[4] + " points", 25, 165);
+        
+    }
+    
+    // }
+    // Leaderboard Page
+      
+    // {
+    
+    if (page === "easy" || page === "hard") {
+    
+    // {
+    
+    timeRemaining -= 0.01;
+    
+    noStroke();
+    
+    fill(255, 0, 0);
+    
+    ellipse(75, 75, 100, 100);
+        
+    fill(0, 0, 0);
+    
+    arc(75, 75, 100, 100, -90, -90 + (scaleSize * timeRemaining));
+        
+    stroke(0, 0, 0);
+        
+    fill(0, 0, 0);
+    textSize(20);
+    
+    if (timeRemaining >= 10) {
+    
+    text("0:" + round(timeRemaining) + " left!", 30, 150);
+        
+    }
+    
+    else {
+        
+    text("0:0" + round(timeRemaining) + " left!", 30, 150);   
+        
+    }
+    
+    // }
+    // Countdown stuff
+    
+    // {
+    
+    var block = function(num, x, y) {
+        
+    noStroke();
+        
+    fill(255, 255, 255);
+    
+    rect(x, y, 50, 50);
+        
+    stroke(0, 0, 0);
+    
+    strokeWeight(3);
+    
+    fill(255, 255, 255);
+    
+    ellipse(x + 25, y + 25, 40, 40);
+    
+    strokeWeight(1);
+    
+    if (botLocation === num) {
+    
+    image(getImage("space/rocketship"), x + 2.5, y + 2.5, 40, 40);
+    
+    }
+    
+    if (yourLocation === num) {
+        
+    image(getImage("cute/CharacterBoy"), x + 9.5, y - 3, 30, 50);  
+        
+    }
+    
+    };
+    
+    block(1, 100, 175);
+    
+    block(2, 150, 175);
+    
+    block(3, 200, 175);
+    
+    block(4, 250, 175);
+    
+    block(5, 100, 225);
+    
+    block(6, 150, 225);
+    
+    block(7, 200, 225);
+    
+    block(8, 250, 225);
+    
+    block(9, 100, 275);
+    
+    block(10, 150, 275);
+    
+    block(11, 200, 275);
+    
+    block(12, 250, 275);
+    
+    block(13, 100, 325);
+    
+    block(14, 150, 325);
+    
+    block(15, 200, 325);
+    
+    block(16, 250, 325);
+    
+    // }
+    // Blocks (squares)
+    
+    // {
+    
+    if (keyCode === UP && keyIsPressed && delayTimer > 10 && yourLocation > 4) {
+        
+    yourLocation -= 4;  
+        
+    delayTimer = 0;
+    
+    hideTimer = 60;
+        
+    }
+    
+    if (keyCode === DOWN && keyIsPressed && delayTimer > 10 && yourLocation <= 12) {
+        
+    yourLocation += 4;  
+        
+    delayTimer = 0;
+    
+    hideTimer = 60;
+        
+    }
+    
+    if (keyCode === LEFT && keyIsPressed && delayTimer > 10 && yourLocation !== 1 && yourLocation !== 5 && yourLocation !== 9 && yourLocation !== 13) {
+        
+    yourLocation -= 1;  
+        
+    delayTimer = 0;
+    
+    hideTimer = 60;
+        
+    }
+    
+    if (keyCode === RIGHT && keyIsPressed && delayTimer > 10 && yourLocation !== 4 && yourLocation !== 8 && yourLocation !== 12 && yourLocation !== 16) {
+        
+    yourLocation += 1;  
+        
+    delayTimer = 0;
+    
+    hideTimer = 60;
+        
+    }
+    
+    // }
+    // Moving 
+    
+    // {
+    
+    fill(0, 0, 0);
+    textSize(30);
+    
+    text("Points: \n" + points, 150, 50);
+        
+    points ++;
+        
+    // }
+    // Points
+    
+    // {
+    
+    if (hideTimer > 0) {
+        
+    fill(0, 0, 0);
+    textSize(20);
+    
+    text("You will be hidden in \n" + hideTimer + "! Hang tight!", 150, 125);
+        
+    hideTimer --;
+        
+    hidden = false;
+        
+    }
+    
+    else{
+        
+    fill(0, 0, 0);
+    textSize(20);
+    
+    text("You are hidden! \nDon't move!", 150, 125);
+    
+    hidden = true;
+        
+    }
+    
+    // }
+    // Status
+    
+    // {
+    
+    if (hidden === true && delayTimer > 100 && keyCode === SHIFT && keyIsPressed) {
+        
+    taunts ++;
+    
+    points += 500;
+    
+    delayTimer = 0;
+        
+    }
+    
+    // }
+    // Taunting
+    
+    // {
+    
+    if (timeRemaining > 50) {
+        
+    botLocation = 1;   
+        
+    }
+    
+    // }
+    // Timeline stuff
+    
+    // {
+    
+    if (page === "easy") {
+        
+    if (hidden === true) {
+        
+    botSmart = (10) + (taunts * 5);   
+        
+    }
+    
+    if (hidden === false) {
+        
+    botSmart = (10) + (taunts * 5) + (70);   
+        
+    }
+        
+    }
+    
+    if (page === "hard") {
+        
+    if (hidden === true) {
+        
+    botSmart = (30) + (taunts * 5);   
+        
+    }
+    
+    if (hidden === false) {
+        
+    botSmart = (30) + (taunts * 5) + (70);   
+        
+    }
+        
+    }
+    
+    if (hidden === false) {
+        
+    required = 30;   
+        
+    }
+    
+    if (hidden === true) {
+        
+    required = 60;   
+        
+    }
+    
+    // }
+    // Bot smart
+    
+    // {
+    
+    if (timeRemaining < 50) {
+        
+    botMove ++;
+    
+    if (botMove > required) {
+        
+    botAction = random(1, 100);
+    
+    botAction = round(botAction);
+    
+    if (botAction <= botSmart) {
+        
+    if (yourLocation > botLocation) {
+        
+    if (botLocation === 4 || botLocation === 8 || botLocation === 12) {
+        
+    botLocation += 4;   
+        
+    }
+    
+    else{
+        
+    botLocation ++;   
+        
+    }
+        
+    }
+    
+    if (yourLocation < botLocation) {
+        
+    if (botLocation === 5 || botLocation === 9 || botLocation === 13) {
+        
+    botLocation -= 4;   
+        
+    }
+    
+    else{
+        
+    botLocation --;   
+        
+    }
+        
+    }
+        
+    }
+    
+    else{
+        
+    otherMove = random(1, 4);
+    
+    otherMove = round(otherMove);
+    
+    if (otherMove === 1) {
+        
+    if (botLocation >= 1 && botLocation <= 4) {
+        
+    otherMove = random(1, 4);
+    
+    otherMove = round(otherMove);
+        
+    }
+    
+    else{
+        
+    botLocation -= 4;
+        
+    }
+        
+    }
+    
+    if (otherMove === 2) {
+        
+    if (botLocation >= 13 && botLocation <= 16) {
+        
+    otherMove = random(1, 4);
+    
+    otherMove = round(otherMove);
+        
+    }
+    
+    else{
+        
+    botLocation += 4;
+        
+    }
+        
+    }
+    
+    if (otherMove === 3) {
+        
+    if (botLocation === 1 || botLocation === 5 || botLocation === 9 || botLocation === 13) {
+        
+    otherMove = random(1, 4);
+    
+    otherMove = round(otherMove);
+        
+    }
+    
+    else{
+        
+    botLocation --;
+        
+    }
+        
+    }
+    
+    if (otherMove === 4) {
+        
+    if (botLocation === 4 || botLocation === 8 || botLocation === 12 || botLocation === 16) {
+        
+    otherMove = random(1, 4);
+    
+    otherMove = round(otherMove);
+        
+    }
+    
+    else{
+        
+    botLocation ++;
+        
+    }
+        
+    }
+        
+    }
+        
+    botMove = 0;   
+        
+    }
+        
+    }
+    
+    // }
+    // CPU (the main part!)
+    
+    // {
+    
+    if (timeRemaining <= 0) {
+        
+    page = "home";
+    
+    println("--- Victory! --- \nCongrats! You evaded capture for 60 seconds! Try it again (if you dare!) You also received " + points + " points!\n--- Congrats! ---");
+    
+    timeRemaining = 60;
+    
+    yourLocation = 1;
+    
+    botLocation = 1;
+    
+    scores[scoresNum] = points;
+    
+    scoresNum ++;
+    
+    points = 0;
+    
+    hidden = false;
+    
+    hideTimer = 60;
+    
+    taunts = 0;
+    
+    required = 60;
+        
+    }
+    
+    if (timeRemaining <= 50 && botLocation === yourLocation) {
+        
+    page = "home";
+    
+    println("--- Game Over! --- \nOh no! You were caught by the seeker! Better luck next time. Try it again (if you dare!) You also received " + points + " points!\n--- Game Ended! ---");
+    
+    timeRemaining = 60;
+    
+    yourLocation = 1;
+    
+    botLocation = 1;
+    
+    scores[scoresNum] = points;
+    
+    scoresNum ++;
+    
+    points = 0;
+    
+    hidden = false;
+    
+    hideTimer = 60;
+    
+    taunts = 0;
+    
+    required = 60;
+        
+    }
+    
+    // }
+    // End round
+        
+    }
+    
+    // }
+    // Play Page
+      
+};
