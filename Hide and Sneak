@@ -173,18 +173,19 @@ draw= function() {
     }
         
     };
+    color(244, 250, 165);
     
-    changeClr(1, 100, 350, 350);
+    changeClr(1, 255, 181, 185);
     
-    changeClr(2, 200, 50, 350);
+    changeClr(2, 250, 160, 250);
     
-    changeClr(3, 100, 10, 350);
+    changeClr(3, 176, 166, 252);
     
-    changeClr(4, 100, 20, 350);
+    changeClr(4, 165, 247, 250);
     
-    changeClr(5, 0, 50, 350);
+    changeClr(5, 165, 250, 178);
     
-    changeClr(6, 0, 450, 350);
+    changeClr(6, 244, 250, 165);
     
     fill(221, 0, 255);
     
@@ -295,14 +296,40 @@ draw= function() {
         
     }
     
-    fill(255, 255, 255);
+    var textClr = 
+    var changeClr = function(num, clr1, clr2, clr3) {
+        
+    if (textClr === num) {
+        
+    textClr(clr1, clr2, clr3);
+        
+    }
+        
+    };
+    
+    changeClr(1, 255, 181, 185);
+    
+    changeClr(2, 250, 160, 250);
+    
+    changeClr(3, 176, 166, 252);
+    
+    changeClr(4, 165, 247, 250);
+    
+    changeClr(5, 165, 250, 178);
+    
+    changeClr(6, 244, 250, 165);
+    
+    
+    
+    
+    fill(textClr);
     textSize(20);
     
-    text("Leaders", 162.5, 182.5);
+    text("Leaders", 165.2, 182.0);// DIAMETER/2
         
-    text("Easy", 76.5, 307.5);
+    text("Easy", 76.5, 307.5);// DIAMETER/2
         
-    text("Hard", 277.5, 307.5);
+    text("Hard", 277.5, 307.5);// DIAMETER/2
         
     }
     
