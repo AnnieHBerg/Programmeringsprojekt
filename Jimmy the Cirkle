@@ -98,7 +98,7 @@ Techy stuff for coders:
 
 // {
 
-var leaders = ["SaiPranavC", "coolkid567 cool", "The No-Sock Guy", "SRReinke", "The Pirate21"];
+var leaders = ["Annie", "Tilda", "Malte", "Hobbe", "Carl"];
 var pointCount = [34501, 19501, 15501, 15001, 12244];
 
 // }
@@ -367,7 +367,7 @@ draw= function() {
     
     noStroke();
     
-    fill(255, 0, 0);
+    fill(255, 127, 127);
     
     ellipse(75, 75, 100, 100);
         
@@ -502,7 +502,7 @@ draw= function() {
         
     delayTimer = 0;
     
-    hideTimer = 60;
+    hideTimer = 75;
         
     }
     
@@ -582,13 +582,13 @@ draw= function() {
         
     if (hidden === true) {
         
-    botSmart = (10) + (taunts * 5);   
+    botSmart = (15) + (taunts * 5);   
         
     }
     
     if (hidden === false) {
         
-    botSmart = (10) + (taunts * 5) + (70);   
+    botSmart = (15) + (taunts * 5) + (70);   
         
     }
         
@@ -627,7 +627,7 @@ draw= function() {
     
     // {
     
-    if (timeRemaining < 50) {
+    if (timeRemaining < 43) {
         
     botMove ++;
     
