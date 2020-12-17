@@ -115,6 +115,7 @@ textFont(createFont("Times new roman"));
 
 var page = "home";
 var backgroundClr = 1;
+var textClr = 1;
 var backgroundTimer = 0;
 var buttonSize = [100, 100, 100, 100];
 var delayTimer = 0;
@@ -136,6 +137,7 @@ var points = 0;
 var timeRemaining = 60;
 var timeChange = 0;
 var scaleSize;
+
 
 // }
 // Variables
@@ -296,7 +298,33 @@ draw= function() {
         
     }
     
-    var textClr = 
+    
+  
+//    draw= function() {
+    
+//    {
+    
+//    backgroundTimer ++;
+    
+//    if (backgroundTimer > 19) {
+        
+//    if (backgroundClr === 6) {
+    
+//    backgroundClr = 1;   
+        
+//    }
+    
+//    else{
+        
+//    backgroundClr ++;   
+        
+//    }
+    
+//    backgroundTimer = 0;
+        
+//    }
+    
+    
     var changeClr = function(num, clr1, clr2, clr3) {
         
     if (textClr === num) {
@@ -306,6 +334,7 @@ draw= function() {
     }
         
     };
+    color(244, 250, 165);
     
     changeClr(1, 255, 181, 185);
     
@@ -319,10 +348,7 @@ draw= function() {
     
     changeClr(6, 244, 250, 165);
     
-    
-    
-    
-    fill(textClr);
+    fill(221, 0, 255);
     textSize(20);
     
     text("Leaders", 165.2, 182.0);// DIAMETER/2
